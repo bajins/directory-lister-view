@@ -48,10 +48,10 @@
             <h2>登录</h2>
             <Form ref="loginData" :model="loginData" :rules="ruleValidate" :label-width="80">
                 <FormItem label="Account" prop="acct">
-                    <Input type="password" v-model="loginData.acct" placeholder="请输入账号"></Input>
+                    <i-input type="password" v-model="loginData.acct" placeholder="请输入账号"></i-input>
                 </FormItem>
                 <FormItem label="Password" prop="pass">
-                    <Input type="password" v-model="loginData.pass" placeholder="请输入密码"></Input>
+                    <i-input type="password" v-model="loginData.pass" placeholder="请输入密码"></i-input>
                 </FormItem>
                 <FormItem class="form-footer">
                     <Button type="primary" @click="handleSubmit('loginData')">Submit</Button>
