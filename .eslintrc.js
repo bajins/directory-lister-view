@@ -1,8 +1,7 @@
 /**
- * 解决console报错问题
  groovy/lang/GroovyShell
  * @return
- * @Description TODO
+ * @Description 解决console报错问题
  * @author claer woytu.com
  * @date 2019/4/29 11:18
  */
