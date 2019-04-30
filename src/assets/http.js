@@ -1,4 +1,5 @@
 import axios from 'axios/index';
+import util from './util.js';
 // import { Message } from 'element-ui';
 
 
@@ -243,6 +244,59 @@ const axiosRequest = (url, obj) => {
 }
 
 /**
+ * 文件下载api封装
+ *
+ * @return
+ * @Description
+ * @author claer woytu.com
+ * @date 2019/4/30 15:13
+ */
+const download = (url, params) => {
+    return new Promise((resolve, reject) => {
+        axiosRequest(url, {
+            method: METHOD.POST,
+            data: params,
+            contentType: CONTENT_TYPE.URLENCODED,
+            responseType: RESPONSE_TYPE.BLOB
+        }).then(function (result) {
+            //这里res.data是返回的blob对象
+            let blob = new Blob([result.data], {type: 'application/actet-stream;charset=utf-8'});
+
+            //从response的headers中获取filename, 后端response.setHeader("Content-Disposition", "attachment; filename=xxxx.xxx") 设置的文件名;
+            let contentDisposition = result.headers['Content-Disposition'];
+            let patt = new RegExp("filename=([^;]+\\.[^\\.;]+);*");
+
+            // 如果从Content-Disposition中取到的文件名为空
+            if (util.isEmpty(contentDisposition)) {
+                contentDisposition = result.config.params.filePath;
+                patt = new RegExp("([^;]+\\.[^\\.;]+);*");
+            }
+            // 取文件名信息中的文件名
+            let filename = patt.exec(contentDisposition)[1];
+            let downloadElement = document.createElement('a');
+            // 创建下载的链接
+            let href = window.URL.createObjectURL(blob);
+
+            downloadElement.style.display = 'none';
+            downloadElement.href = href;
+            // 下载后文件名
+            downloadElement.download = filename;
+            document.body.appendChild(downloadElement);
+            // 点击下载
+            downloadElement.click();
+            // 下载完成移除元素
+            document.body.removeChild(downloadElement);
+            // 释放掉blob对象
+            window.URL.revokeObjectURL(href);
+
+        }).catch(function (err) {
+            reject(err);
+        })
+    })
+}
+
+
+/**
  * export default 服从 ES6 的规范,补充：default 其实是别名
  * module.exports 服从CommonJS 规范
  * 一般导出一个属性或者对象用 export default
@@ -266,5 +320,6 @@ export default {
     post,
     patch,
     put,
-    axiosRequest
+    axiosRequest,
+    download
 }
