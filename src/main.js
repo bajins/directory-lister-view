@@ -14,6 +14,10 @@ axios.defaults.baseURL = "http://localhost:8090";
 //设置请求的headers
 axios.defaults.headers.common['token'] = ''
 axios.defaults.headers.post['Content-type'] = 'application/json'
+// axios.defaults.headers.proxy = {
+//     host: "http://localhost",
+//     port: 8090
+// }
 
 // 2 将axios添加到Vue的原型对象中
 // 在 vue 中全局注册 这样可以直接使用不使用 Vue.use() 方式
