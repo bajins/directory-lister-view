@@ -148,6 +148,21 @@ const mergeArray = (arr1, arr2) => {
     return arr1;
 }
 
+/**
+ * 插入去重的元素
+ *
+ * @return
+ * @Description
+ * @author claer woytu.com
+ * @date 2019/4/30 17:05
+ */
+const reinsertElement = (array, element) => {
+    if (array.indexOf(element) === -1) {
+        array.push(element);
+    }
+    return array;
+}
+
 
 /**
  * 判断js数组/对象是否为空
@@ -221,5 +236,14 @@ const replace = (str, substring, newString, isAll) => {
  * @date 2019/4/29 11:58
  */
 export default {
-    getCurrAbsPath, getPath, formatNumber, formatTime, isEmpty, mergeArray, randomNum, splitArray, replace
+    getCurrAbsPath,
+    getPath,
+    formatNumber,
+    formatTime,
+    isEmpty,
+    mergeArray,
+    reinsertElement,
+    randomNum,
+    splitArray,
+    replace
 }
