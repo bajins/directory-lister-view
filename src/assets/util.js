@@ -185,6 +185,25 @@ const isEmpty = ($obj) => {
     return false;
 }
 
+/**
+ * replace默认只替换第一个匹配项
+ * @param str 父字符串
+ * @param substring 被替换的字符串
+ * @param newString 新字符串
+ *
+ * "g"是匹配全部的意思，也可以换成""，就是匹配第一个
+ *
+ * @return
+ * @Description
+ * @author claer woytu.com
+ * @date 2019/4/30 15:20
+ */
+const replace = (str, substring, newString, isAll) => {
+    if (!isEmpty(isAll) && isAll) {
+        return str.replace(new RegExp(substring, "g"), newString);
+    }
+    return str.replace(new RegExp(substring, ""), newString);
+}
 
 /**
  * export default 服从 ES6 的规范,补充：default 其实是别名
@@ -202,5 +221,5 @@ const isEmpty = ($obj) => {
  * @date 2019/4/29 11:58
  */
 export default {
-    getCurrAbsPath, getPath, formatNumber, formatTime, isEmpty, mergeArray, randomNum, splitArray
+    getCurrAbsPath, getPath, formatNumber, formatTime, isEmpty, mergeArray, randomNum, splitArray, replace
 }
