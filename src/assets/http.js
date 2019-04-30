@@ -212,7 +212,8 @@ const put = (url, data = {}) => {
  * @param obj 有以下参数：
  *   url： 请求路径：如果obj.url为空就取这里的值
  *   method： 请求方式（OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT）
- *   data： 请求数据
+ *   data： 是作为请求主体被发送的数据,只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'
+ *   params: 是即将与请求一起发送的 URL 参数
  *   contentType:  请求数据类型(application/x-www-form-urlencoded,multipart/form-data,text/plain)
  *   dataType： 返回数据类型（json,text,xml,html,script,jsonp）
  *   responseType： 响应的数据类型（text，arraybuffer,blob,document,json,ms-stream）
