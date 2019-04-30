@@ -226,7 +226,7 @@ const axiosRequest = (url, obj) => {
         axios({
             url: obj.url || url,
             method: obj.method || METHOD.GET,
-            data: obj.data || {},//是作为请求主体被发送的数据,只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'
+            data: obj.data || {},// 是作为请求主体被发送的数据,只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'
             params: obj.data || {},// 是即将与请求一起发送的 URL 参数
             header: {
                 'Content-Type': obj.contentType || CONTENT_TYPE.URLENCODED
