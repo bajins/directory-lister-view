@@ -271,8 +271,8 @@ const download = (url, params) => {
                 contentDisposition = result.config.params.filePath;
                 patt = new RegExp("([^;]+\\.[^\\.;]+);*");
             }
-            // 取文件名信息中的文件名
-            let filename = patt.exec(contentDisposition)[1];
+            // 取文件名信息中的文件名,替换掉文件名中多余的符号\
+            let filename = util.replace(patt.exec(contentDisposition)[1], "\\\\", "", true);
             let downloadElement = document.createElement('a');
             // 创建下载的链接
             let href = window.URL.createObjectURL(blob);
