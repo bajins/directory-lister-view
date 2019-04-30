@@ -232,8 +232,8 @@ const axiosRequest = (url, obj) => {
             header: {
                 'Content-Type': obj.contentType || CONTENT_TYPE.URLENCODED
             },
-            dataType: obj.dataType || "json",
-            responseType: obj.responseType || "json",
+            dataType: obj.dataType || DATA_TYPE.JSON,
+            responseType: obj.responseType || RESPONSE_TYPE.JSON,
         }).then(response => {
             resolve(response);
         }).catch((error) => {
