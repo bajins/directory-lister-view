@@ -4,8 +4,12 @@ import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import './plugins/iview.js'
+import VueI18n from 'vue-i18n';
 import iView from 'iview' // 引入iview依赖
 import 'iview/dist/styles/iview.css' // 引入iview css样式
+import zhLocale from 'iview/src/locale/lang/zh-CN';
+import enLocale from 'iview/src/locale/lang/en-US';
+import i18n from './i18n'
 
 
 // 1 将所有的主机名和端口 一起设置
@@ -25,10 +29,17 @@ axios.defaults.headers.post['Content-type'] = 'application/json'
 
 Vue.config.productionTip = false
 
-Vue.use(iView) //使用iview组件
+Vue.use(VueI18n);
+Vue.use(iView);
+
+Vue.config.lang = 'zh-CN';
+Vue.locale('zh-CN', zhLocale);
+Vue.locale('en-US', enLocale);
+// 注意：使用 vue-i18n 时，需要将本地的语言包和 iView 的语言包合并
 
 new Vue({
     router,
     axios,
+    i18n,
     render: h => h(App)
 }).$mount('#app')

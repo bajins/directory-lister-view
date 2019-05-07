@@ -44,7 +44,7 @@
     <Layout class="layout">
         <Header>
             <!--            <div class="layout-logo"></div>-->
-            <Breadcrumb style="margin-left: 200px">
+            <Breadcrumb style="margin-left: 20%">
                 <Breadcrumb-item style="color: blanchedalmond;font-size: 150%">BajinsSoft</Breadcrumb-item>
                 <Breadcrumb-item v-for="(item,index) in menuItems" :key="index"
                                  style="color: blanchedalmond;font-size: 120%">{{item}}
@@ -59,7 +59,7 @@
             <!--                </Row>-->
             <Table :row-class-name="rowClassName" :columns="columns" :data="list" size="large"
                    @on-row-click="clickRow"></Table>
-            <div style="margin: 10px;overflow: hidden">
+            <div style="margin: 1%;overflow: hidden">
                 <div style="float: right;">
                     <Page :total="total" :page-size="pageSize" @on-page-size-change="changePageSize"
                           @on-change="changePage" show-elevator show-sizer></Page>
