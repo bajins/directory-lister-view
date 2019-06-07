@@ -261,8 +261,7 @@ const download = (url, params) => {
             contentType: CONTENT_TYPE.URLENCODED,
             responseType: RESPONSE_TYPE.BLOB
         }).then(function (result) {
-            //这里res.data是返回的blob对象
-            let blob = new Blob([result.data], {type: 'application/actet-stream;charset=utf-8'});
+            
 
             //从response的headers中获取filename, 后端response.setHeader("Content-Disposition", "attachment; filename=xxxx.xxx") 设置的文件名;
             let contentDisposition = result.headers['Content-Disposition'];
@@ -279,6 +278,9 @@ const download = (url, params) => {
             filename = util.replace(filename, "\\\\", "", true);
             filename = util.replace(filename, "/", "", true);
             let downloadElement = document.createElement('a');
+			
+			//这里res.data是返回的blob对象
+            let blob = new Blob([result.data], {type: 'application/actet-stream;charset=utf-8'});
             // 创建下载的链接
             let href = window.URL.createObjectURL(blob);
 
