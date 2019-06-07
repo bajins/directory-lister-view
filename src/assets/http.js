@@ -261,8 +261,9 @@ const download = (url, params) => {
             contentType: CONTENT_TYPE.URLENCODED,
             responseType: RESPONSE_TYPE.BLOB
         }).then(function (result) {
-            
 
+			// console.log(xhr.getAllResponseHeaders());
+			// xhr.getResponseHeader('Content-Disposition');
             //从response的headers中获取filename, 后端response.setHeader("Content-Disposition", "attachment; filename=xxxx.xxx") 设置的文件名;
             let contentDisposition = result.headers['Content-Disposition'];
             let patt = new RegExp("filename=([^;]+\\.[^\\.;]+);*");
