@@ -280,7 +280,7 @@ const download = (url, params) => {
             let downloadElement = document.createElement('a');
 			
 			//这里res.data是返回的blob对象
-            let blob = new Blob([result.data], {type: 'application/actet-stream;charset=utf-8'});
+            let blob = new Blob([result.data], {type: 'application/octet-stream;charset=utf-8'});
             // 创建下载的链接
             let href = window.URL.createObjectURL(blob);
 
