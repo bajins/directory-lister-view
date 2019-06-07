@@ -23,7 +23,8 @@ const METHOD = {
 }
 
 /**
- * 请求数据类型,告诉服务器，我要发什么类型的数据
+ * 请求数据类型,告诉服务器，我要发什么类型的数据。
+ *
  * application/x-www-form-urlencoded：数据被编码为名称/值对。这是标准的编码格式。
  * multipart/form-data：数据被编码为一条消息，页上的每个控件对应消息中的一个部分。
  * text/plain：数据以纯文本形式(text/json/xml/html)进行编码，其中不含任何控件或格式字符。postman软件里标的是RAW。
@@ -39,7 +40,8 @@ const CONTENT_TYPE = {
 }
 
 /**
- * 返回数据类型,告诉服务器，我要想什么类型的数据，
+ * 预期服务器返回的数据类型，如果是下载文件则指定RESPONSE_TYPE
+ *
  * 如果没有指定，那么会自动推断是返回 XML，还是JSON，还是script，还是String。
  * xml: 返回 XML 文档。
  * html: 返回纯文本 HTML 信息；包含的 script 标签会在插入 dom 时执行。
