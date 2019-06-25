@@ -1,17 +1,26 @@
 import Vue from 'vue'
-import './plugins/axios'
 import axios from 'axios'
 import App from './App.vue'
-import router from './router'
-import './plugins/iview.js'
+import router from 'vue-router'
+import iView from 'iview'; // 引入iview依赖
 import VueI18n from 'vue-i18n';
-import iView from 'iview' // 引入iview依赖
 import 'iview/dist/styles/iview.css' // 引入iview css样式
-import zhLocale from 'iview/src/locale/lang/zh-CN';
-import enLocale from 'iview/src/locale/lang/en-US';
-import i18n from './i18n'
+import en from 'iview/dist/locale/en-US';
+import zh from 'iview/dist/locale/zh-CN';
 
+Vue.use(VueI18n);
+Vue.use(iView);
+Vue.locale = () => {};
+const messages = {
+    en: Object.assign({ message: 'hello' }, en),
+    zh: Object.assign({ message: '你好' }, zh)
+};
 
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+    locale: 'zh',  // set locale
+    messages  // set locale messages
+});
 // 1 将所有的主机名和端口 一起设置
 axios.defaults.baseURL = "http://localhost:8090";
 
@@ -29,13 +38,6 @@ axios.defaults.headers.post['Content-type'] = 'application/json'
 
 Vue.config.productionTip = false
 
-Vue.use(VueI18n);
-Vue.use(iView);
-
-Vue.config.lang = 'zh-CN';
-Vue.locale('zh-CN', zhLocale);
-Vue.locale('en-US', enLocale);
-// 注意：使用 vue-i18n 时，需要将本地的语言包和 iView 的语言包合并
 
 new Vue({
     router,
