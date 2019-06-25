@@ -13,9 +13,16 @@ const isTraceEnabled = true;
 let loggerName = "[" + util.getCurrAbsPath() + "]";
 
 console.log(
-    "isDebugEnabled,isInfoEnabled,isErrorEnabled,isWarnEnabled,isTraceEnabled=> %c " +
-    `${isDebugEnabled},${isInfoEnabled},${isErrorEnabled},${isWarnEnabled},${isTraceEnabled}`,
-    'color:red;'
+    "%cisDebugEnabled=%c" + `${isDebugEnabled}` +
+    ",%cisInfoEnabled=%c" + `${isInfoEnabled}` +
+    ",%cisErrorEnabled=%c " + `${isErrorEnabled}` +
+    ",%cisWarnEnabled=%c" + `${isWarnEnabled}` +
+    ",%cisTraceEnabled=%c" + `${isTraceEnabled}`
+    , 'color:#2db7f5;', 'color:red;'
+    , 'color:#2db7f5;', 'color:red;'
+    , 'color:red;', 'color:red;'
+    , 'background:#aaa;color:#bada55;', 'color:red;'
+    , 'color:#2db7f5;', 'color:red;'
 );
 
 /**
@@ -73,7 +80,7 @@ const warn = (...log) => {
     }
 };
 const trace = (...log) => {
-    if (isWarnEnabled) {
+    if (isTraceEnabled) {
         console.trace(loggerName + getParam(log));
     }
 };
