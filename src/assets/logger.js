@@ -1,6 +1,6 @@
 import util from "./util.js"
 
-const isDebugEnabled = process.env.NODE_ENV !== "production";
+const isDebugEnabled = process.env.NODE_ENV != "production";
 const isInfoEnabled = true;
 const isErrorEnabled = true;
 const isWarnEnabled = true;
@@ -10,11 +10,12 @@ const isTraceEnabled = true;
 // let js = document.scripts;
 // js = js[js.length - 1].src.substring(0, js[js.length - 1].src.lastIndexOf("/") + 1);
 
-let loggerName = util.getCurrAbsPath();
+let loggerName = "[" + util.getCurrAbsPath() + "]";
 
 console.log(
-    "isDebugEnabled,isInfoEnabled,isErrorEnabled,isWarnEnabled,isTraceEnabled=>",
-    `${isDebugEnabled},${isInfoEnabled},${isErrorEnabled},${isWarnEnabled},${isTraceEnabled}`
+    "isDebugEnabled,isInfoEnabled,isErrorEnabled,isWarnEnabled,isTraceEnabled=> %c " +
+    `${isDebugEnabled},${isInfoEnabled},${isErrorEnabled},${isWarnEnabled},${isTraceEnabled}`,
+    'color:red;'
 );
 
 /**
@@ -51,51 +52,31 @@ const getParam = (...log) => {
 
 const debug = (...log) => {
     if (isDebugEnabled) {
-        console.debug("[", loggerName, "]", getParam(log));
+        console.log("%c " + loggerName + " %c " + getParam(log), 'color:red;', 'font-size:15px;color:red;');
     }
 };
 
 const info = (...log) => {
     if (isInfoEnabled) {
-        console.info("[", loggerName, "]", getParam(log));
+        console.info(loggerName + getParam(log));
     }
 };
 
 const error = (...log) => {
     if (isErrorEnabled) {
-        console.error("[", loggerName, "]", getParam(log));
+        console.error(loggerName + getParam(log));
     }
 };
 const warn = (...log) => {
     if (isWarnEnabled) {
-        console.warn("[", loggerName, "]", getParam(log));
+        console.warn(loggerName + getParam(log));
     }
 };
 const trace = (...log) => {
     if (isWarnEnabled) {
-        console.trace("[", loggerName, "]", getParam(log));
+        console.trace(loggerName + getParam(log));
     }
 };
-
-// const logger = {
-//     debug,
-//     info,
-//     error
-// };
-
-/**
- * @param name 文件名称
- * @return
- * @Description 传入当前文件名
- * @author claer woytu.com
- * @date 2019/4/29 11:54
- */
-// const getLogger = name => {
-//     if (name) {
-//         loggerName = name;
-//     }
-//     return logger;
-// };
 
 /**
  groovy/lang/GroovyShell
@@ -109,6 +90,5 @@ export default {
     info,
     error,
     warn,
-    trace,
-    // getLogger
+    trace
 };
