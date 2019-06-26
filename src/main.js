@@ -7,6 +7,16 @@ import VueI18n from 'vue-i18n';
 import 'iview/dist/styles/iview.css' // 引入iview css样式
 import en from 'iview/dist/locale/en-US';
 import zh from 'iview/dist/locale/zh-CN';
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import solid from '@fortawesome/fontawesome-free-solid'
+import regular from '@fortawesome/fontawesome-free-regular'
+import brands from '@fortawesome/fontawesome-free-brands'
+
+fontawesome.library.add(solid);
+fontawesome.library.add(regular);
+fontawesome.library.add(brands);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueI18n);
 Vue.use(iView);
