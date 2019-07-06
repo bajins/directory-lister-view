@@ -276,8 +276,7 @@ const download = (url, params) => {
                 filename = patt.exec(contentDisposition)[1];
             }
             // 取文件名信息中的文件名,替换掉文件名中多余的符号
-            filename = util.replace(filename, "\\\\", "", true);
-            filename = util.replace(filename, "/", "", true);
+            filename = filename.replaceAll("\\\\|/|\"", "");
             let downloadElement = document.createElement('a');
 			
 			//这里res.data是返回的blob对象
