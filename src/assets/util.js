@@ -9,8 +9,12 @@
  * @date 2019/5/24 11:22
  */
 String.prototype.endWith = function (str) {
-    if (str == null || str == "" || this.length == 0 || str.length > this.length)
+    if (str == null || str == "" || this.length == 0) {
         return false;
+    }
+    if (str.length > this.length) {
+        return false;
+    }
     if (this.substring(this.length - str.length) != str) {
         return false;
     }
@@ -27,8 +31,12 @@ String.prototype.endWith = function (str) {
  * @date 2019/5/24 11:22
  */
 String.prototype.startWith = function (str) {
-    if (str == null || str == "" || this.length == 0 || str.length > this.length)
+    if (str == null || str == "" || this.length == 0) {
         return false;
+    }
+    if (str.length > this.length) {
+        return false;
+    }
     if (this.substr(0, str.length) != str) {
         return false;
     }
@@ -189,6 +197,8 @@ const randomNum = (minNum, maxNum) => {
  * 将数组平均分割
  * arr 数组
  * len 分割成多少个
+ * @author claer woytu.com
+ * @date 2019/4/29 20:10
  */
 const splitArray = (arr, len) => {
     let arr_length = arr.length;
