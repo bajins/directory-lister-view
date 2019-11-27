@@ -1,15 +1,20 @@
+/**
+ * @Description:
+ * @Author: bajins www.bajins.com
+ * @File: http.js
+ * @Version: 1.0.0
+ * @Time: 2019/9/12 11:29
+ * @Project: tool-gin
+ * @Package:
+ * @Software: GoLand
+ */
 import axios from 'axios/index';
 import util from './util.js';
-// import { Message } from 'element-ui';
-
 
 /**
  * 请求方式（OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT）
  *
- * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 13:53
+ * @type {{TRACE: string, HEAD: string, DELETE: string, POST: string, GET: string, CONNECT: string, OPTIONS: string, PUT: string}}
  */
 const METHOD = {
     OPTIONS: "OPTIONS",
@@ -28,10 +33,8 @@ const METHOD = {
  * application/x-www-form-urlencoded：数据被编码为名称/值对。这是标准的编码格式。默认使用此类型。
  * multipart/form-data：数据被编码为一条消息，页上的每个控件对应消息中的一个部分。
  * text/plain：数据以纯文本形式(text/json/xml/html)进行编码，其中不含任何控件或格式字符。postman软件里标的是RAW。
- * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 13:56
+ *
+ * @type {{FORM_DATA: string, URLENCODED: string, TEXT_PLAIN: string}}
  */
 const CONTENT_TYPE = {
     URLENCODED: "application/x-www-form-urlencoded",
@@ -51,10 +54,7 @@ const CONTENT_TYPE = {
  * jsonp: JSONP 格式。使用 JSONP 形式调用函数时，如 “myurl?callback=?” jQuery 将自动替换 ? 为正确的函数名，以执行回调函数。
  * text: 返回纯文本字符串
  *
- * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 14:00
+ * @type {{SCRIPTY: string, JSONP: string, XML: string, JSON: string, TEXT: string, HTML: string}}
  */
 const DATA_TYPE = {
     JSON: "json", TEXT: "text", XML: "xml", HTML: "html", SCRIPTY: "script", JSONP: "jsonp"
@@ -74,13 +74,11 @@ const DATA_TYPE = {
  *         而不是自请求发送以来收到的所有数据。在 progress 事件处理时访问 response 将返回到目前为止收到的数据。
  *         在 progress 事件处理程序之外访问， response 的值会始终为 null 。
  *  "ms-stream"  response 是下载流的一部分；此响应类型仅允许下载请求，并且仅受Internet Explorer支持。
- * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 14:13
+ *
+ * @type {{ARRAYBUFFER: string, BLOB: string, MS_STREAM: string, DOCUMENT: string, TEXT: string, JSON: string}}
  */
 const RESPONSE_TYPE = {
-    TEXT: "text", ARRAYBUFFER: "arraybuffer", BLOB: "blob", DOCUMENT: "document", JSON: "json", MS_STREAM: "ms-stream"
+    TEXT: "text", ARRAY_BUFFER: "arraybuffer", BLOB: "blob", DOCUMENT: "document", JSON: "json", MS_STREAM: "ms-stream"
 }
 
 
@@ -262,21 +260,21 @@ const download = (url, params) => {
             responseType: RESPONSE_TYPE.BLOB
         }).then(function (result) {
 
-			// console.log(xhr.getAllResponseHeaders());
-			// xhr.getResponseHeader('Content-Disposition');
+            // console.log(xhr.getAllResponseHeaders());
+            // xhr.getResponseHeader('Content-Disposition');
             //从response的headers中获取filename, 后端response.setHeader("Content-Disposition", "attachment; filename=xxxx.xxx") 设置的文件名;
             let contentDisposition = result.headers['Content-Disposition'];
             let filename = "";
             // 如果从Content-Disposition中取到的文件名不为空
-            if (!isEmpty(contentDisposition)) {
+            if (!util.isEmpty(contentDisposition)) {
                 let reg = new RegExp("filename=([^;]+\\.[^\\.;]+);*");
                 filename = reg.exec(contentDisposition)[1];
                 // 取文件名信息中的文件名,替换掉文件名中多余的符号
                 filename = filename.replaceAll("\\\\|/|\"", "");
             }
             let downloadElement = document.createElement('a');
-			
-			//这里res.data是返回的blob对象
+
+            //这里res.data是返回的blob对象
             let blob = new Blob([result.data], {type: 'application/octet-stream;charset=utf-8'});
             // 创建下载的链接
             let href = window.URL.createObjectURL(blob);
