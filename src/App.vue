@@ -1,9 +1,7 @@
 <style scoped>
     .layout {
-        border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
-        border-radius: 4px;
         overflow: hidden;
         display: flex;
         flex-flow: column;
@@ -63,18 +61,18 @@
             <!--                </Row>-->
             <Table :row-class-name="rowClassName" :columns="columns" :data="list" size="large"
                    @on-row-click="clickRow"></Table>
-            <div style="margin: 1%;overflow: hidden">
+            <div style="margin: 1%;overflow: hidden" v-if="list.length>0">
                 <div style="float: right;">
                     <Page :total="total" :page-size="pageSize" @on-page-size-change="changePageSize"
                           @on-change="changePage" show-elevator show-sizer></Page>
                 </div>
             </div>
         </div>
-        <Footer class="footer">2011-2019 &copy; Bajins</Footer>
+        <Footer class="footer">2011-2019 &copy; {{title}}</Footer>
     </Layout>
 </template>
 <script>
-    import logger from "./assets/logger.js";
+    import log from "./assets/log.js";
     import http from "./assets/http.js";
     import util from "./assets/util.js";
 
@@ -85,6 +83,7 @@
         },
         data() {
             return {
+                title: this.config.title,
                 columns: [
                     {
                         title: '文件',
@@ -176,17 +175,17 @@
                     _this.menuItems = [];
                     _this.menuItems = _this.menuItems.concat(mArray);
 
-                    logger.debug("==========", JSON.stringify(_this.menuItems))
+                    log.debug("==========", JSON.stringify(_this.menuItems))
                 } else {
                     // 是文件
                     http.download("home/downloadfile", {filePath: res.path}).catch(function (err) {
                         if (err.response) {
                             // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-                            logger.debug(err.response.data);
-                            logger.debug(err.response.status);
-                            logger.debug(err.response.headers);
+                            log.debug(err.response.data);
+                            log.debug(err.response.status);
+                            log.debug(err.response.headers);
                         } else {
-                            logger.debug(err)
+                            log.debug(err)
                             _this.$Message.error("访问出错了" + err, 3);
                         }
                     })
