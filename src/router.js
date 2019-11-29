@@ -1,24 +1,30 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Router from 'vue-router';
+import Login from './views/login.vue';
+import pageComponent from './components/page.vue';
+import Vue from "vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/${path}',
-      name: 'home',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('./views/login.vue')
-      component: Home
-    }
-  ]
+    routes: [
+        {
+            path: '/index',
+            name: 'index',
+            component: pageComponent
+        },
+        {
+            path: '/login',
+            name: 'login1',
+            component: Login
+        },
+        {
+            path: '/login/${path}',
+            name: 'login',
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            // component: () => import('./views/login.vue')
+            component: Login
+        }
+    ]
 })

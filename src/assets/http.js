@@ -140,10 +140,9 @@ const get = (url, params = {}) => {
             params: params
         }).then(response => {
             resolve(response);
+        }).catch(err => {
+            reject(err)
         })
-            .catch(err => {
-                reject(err)
-            })
     })
 }
 
