@@ -1,6 +1,7 @@
 <style scoped>
     .content {
         width: 70vw;
+        height: 100vh;
         margin: 0 auto;
         flex: 1;
     }
@@ -51,8 +52,7 @@
         <!--                    <i-col span="6" style="background-color: darkorchid">{{item.size}}}</i-col>-->
         <!--                    <i-col span="6" style="background-color: greenyellow">{{item.modtime}}}</i-col>-->
         <!--                </Row>-->
-        <Table :row-class-name="rowClassName" :columns="columns" :data="files" size="large"
-               @on-row-click="clickRow" class="table"></Table>
+        <Table :row-class-name="rowClassName" :columns="columns" :data="files" size="large" class="table"></Table>
         <!--        <div style="margin: 1%;overflow: hidden" v-if="list.length>0">-->
         <!--            <div style="float: right;">-->
         <!--                <Page :total="total" :page-size="pageSize" @on-page-size-change="changePageSize"-->
@@ -91,6 +91,9 @@
                                     "color": "#246bb7",
                                     "text-decoration": "none",
                                     "background-color": "transparent",
+                                },
+                                attrs: {
+                                    href: "/home" + params.row.path,
                                 },
                                 // on: {
                                 //     click: () => {

@@ -40,7 +40,7 @@ const i18n = new VueI18n({
 });
 
 // 1 将所有的主机名和端口 一起设置
-Axios.defaults.baseURL = "/api";
+Axios.defaults.baseURL = "/home";
 
 //设置请求的headers
 Axios.defaults.headers.common['token'] = '';

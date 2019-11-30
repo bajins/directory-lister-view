@@ -15,14 +15,14 @@ module.exports = {
             // 与Axios.defaults.baseURL的值一至
             // https://blog.csdn.net/idomyway/article/details/94358986
             // https://blog.csdn.net/Liu_yunzhao/article/details/90520028
-            '/api': {
+            '/home': {
                 target: 'http://localhost:8000',
                 // 是否启用websockets
                 ws: true,
                 // secure: false, // https协议才设置
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api/': '/', // rewrite path
+                    '^/home/': '/', // rewrite path
                 }
             }
         }
