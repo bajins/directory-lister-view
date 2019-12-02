@@ -42,7 +42,7 @@
                         <span>{{item.name}}</span>
                     </Breadcrumb-item>
                     <Breadcrumb-item v-else-if="index!=0">
-                        <a :href="item.path">{{item.name}}</a>
+                        <a :href="'?dir='+item.path">{{item.name}}</a>
                     </Breadcrumb-item>
                 </span>
             </Breadcrumb>
@@ -92,11 +92,11 @@
                                     "background-color": "transparent",
                                 },
                                 attrs: {
-                                    href: params.row.path,
+                                    href: params.row.isDir ? `?dir=${params.row.link}` : params.row.link,
                                 },
                                 // on: {
                                 //     click: () => {
-                                //         console.log(params)
+                                //         this.$router.push({ path:""});
                                 //     }
                                 // }
                             }, params.row.name);
@@ -123,102 +123,70 @@
             }
         },
         created() {
-            // this.getApiData();
+            this.getApiData();
         },
         // 监控数据变化，随时更新DOM
         mounted() {
-            this.getApiData();
+            // this.getApiData();
         },
         methods: {
             // 获取当前页数据
             getApiData() {
-                console.log(this.$route.path)
+                let url = this.$route.fullPath;
+                log.debug(url, this.$route.query.dir);
                 let _this = this;
-                // 并且响应成功以后会执行then方法中的回调函数
-                this.$axios.get(this.$route.path).then(function (result) {
-                    let data = result.data.data;
-                    _this.files = data.file;
-                    _this.menuItems = data.links;
-
-                    // 创建一个数组用来存储符合权限的路由
-                    let dataRouter = [];
-                    // 循环遍历动态路由表的每一个路由
-                    data.file.forEach((item) => {
-                        let data = {};
-                        if (item.isDir) {
-                            data['path'] = item.path;
-                            data['name'] = item.name;
-                            // () => import("@/components/page.vue")
-                            data['component'] = util.getViews("/components/page");
-                            dataRouter.push(data);
+                if (url == "/" || this.$route.query.dir) {
+                    // 并且响应成功以后会执行then方法中的回调函数
+                    this.$axios.get(url).then(function (result) {
+                        if (result.data.code != 200) {
+                            _this.$Message.error({content: result.data.message, duration: 10});
+                            return;
                         }
-                    })
+                        let data = result.data.data;
+                        _this.files = data.file;
+                        _this.menuItems = data.links;
 
-                    console.log(this.$route.query);
-                    // http://auan.cn/front/1740.html
-                    // https://blog.csdn.net/xp541130126/article/details/81513651
-                    // https://blog.csdn.net/qq_39651981/article/details/86701676
-                    // http://www.imooc.com/article/286102
-                    // 动态添加路由信息
-                    this.$router.addRoutes(dataRouter);
-                }.bind(this)).catch(function (err) {
-                    _this.$Message.error({content: err.toString(), duration: 10});
-                });
-            },
-            // 设置每行class
-            rowClassName() {
-                return 'table-info-row';
-            },
-            // 切换页码
-            changePage(index) {
-                this.list = this.getApiData(index, this.pageSize);
-            },
-            // 切换一页显示数据条数
-            changePageSize(index) {
-                this.pageSize = index;
-                this.list = this.getApiData(1, this.pageSize);
-            },
-            // 点击当前行操作
-            clickRow(res) {
-                let _this = this;
-                // 如果是文件夹
-                if (res.isDir) {
-                    this.getApiData(1, this.pageSize, res.path);
-                    let m = res.path.substring(0, res.path.lastIndexOf("/"));
-                    if (util.isEmpty(m)) {
-                        _this.menuItems.push({"path": "/", "name": "BajinsSoft"});
-                    }
-                    let mArray = [];
-                    _this.menuItems.forEach(k => {
-                        if (k["path"] == "") {
-                            mArray.push({"path": m, "name": k["name"]});
-                        } else {
-                            mArray.push(k);
+                        // 创建一个数组用来存储符合权限的路由
+                        let dataRouter = [];
+                        // 循环遍历动态路由表的每一个路由
+                        data.file.forEach((item) => {
+                            let data = {};
+                            if (item.isDir) {
+                                data['path'] = item.link;
+                                data['name'] = item.name;
+                                // () => import("@/components/page.vue")
+                                data['component'] = util.getViews("/components/page");
+                                dataRouter.push(data);
+                            }
+                        });
+                        if (dataRouter.length != 0) {
+                            // http://auan.cn/front/1740.html
+                            // https://blog.csdn.net/xp541130126/article/details/81513651
+                            // https://blog.csdn.net/qq_39651981/article/details/86701676
+                            // http://www.imooc.com/article/286102
+                            // 动态添加路由信息
+                            this.$router.addRoutes(dataRouter);
                         }
+                    }.bind(this)).catch(function (err) {
+                        _this.$Message.error({content: err.toString(), duration: 10});
                     });
-                    let map = {};
-                    map["path"] = "";
-                    map["name"] = res.name;
-                    mArray.push(map);
-
-                    _this.menuItems = [];
-                    _this.menuItems = _this.menuItems.concat(mArray);
-
-                    log.debug("==========", JSON.stringify(_this.menuItems))
                 } else {
-                    // 是文件
-                    http.download("home/downloadfile", {filePath: res.path}).catch(function (err) {
+                    http.download(url).catch(function (err) {
                         if (err.response) {
                             // 请求已发出，但服务器响应的状态码不在 2xx 范围内
                             log.debug(err.response.data);
                             log.debug(err.response.status);
                             log.debug(err.response.headers);
                         } else {
-                            log.debug(err)
-                            _this.$Message.error("访问出错了" + err, 3);
+                            log.error(err)
+                            _this.$Message.error({content: err.toString(), duration: 10});
                         }
                     })
                 }
+            },
+            // 设置每行class
+            rowClassName() {
+                return 'table-info-row';
             }
         }
     }
