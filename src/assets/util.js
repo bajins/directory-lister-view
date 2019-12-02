@@ -316,6 +316,21 @@ const isEmpty = (obj) => {
     }
 }
 
+/**
+ * 动态导入组件
+ * 同() => import(`@${_this.files.path}.vue`)
+ *
+ * @param path
+ * @returns {function(...[*]=)}
+ */
+const getViews = (path) => {
+    return resolve => {
+        require.ensure([], (require) => {
+            resolve(require(`@${path}.vue`));
+        })
+    }
+}
+
 
 /**
  * export default 服从 ES6 的规范,补充：default 其实是别名
@@ -337,5 +352,6 @@ export default {
     getPath,
     randomNum,
     delay,
-    isEmpty
+    isEmpty,
+    getViews
 }
