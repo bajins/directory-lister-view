@@ -127,83 +127,6 @@ axios.interceptors.response.use(
     }
 )
 
-
-/**
- * 封装get方法
- * @param url
- * @param data
- * @returns {Promise}
- */
-const get = (url, params = {}) => {
-    return new Promise((resolve, reject) => {
-        axios.get(url, {
-            params: params
-        }).then(response => {
-            resolve(response);
-        }).catch(err => {
-            reject(err)
-        })
-    })
-}
-
-
-/**
- * 封装post请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-const post = (url, data = {}) => {
-    return new Promise((resolve, reject) => {
-        axios.post(url, data,
-            // {
-            //     headers: {
-            //      	'token': 'Bearer',
-            //     }
-            // }
-        ).then(response => {
-            resolve(response);
-        }, err => {
-            reject(err)
-        })
-    })
-}
-
-/**
- * 封装patch请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-const patch = (url, data = {}) => {
-    return new Promise((resolve, reject) => {
-        axios.patch(url, data)
-            .then(response => {
-                resolve(response);
-            }, err => {
-                reject(err)
-            })
-    })
-}
-
-/**
- * 封装put请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-const put = (url, data = {}) => {
-    return new Promise((resolve, reject) => {
-        axios.put(url, data)
-            .then(response => {
-                resolve(response);
-            }, err => {
-                reject(err)
-            })
-    })
-}
-
-
 /**
  * 封装axios HTTP请求API为`Promise`方式
  * 使用方法：http.axiosRequest({obj对象的数据},url字符串：如果obj.url为空就取这里的值)
@@ -317,10 +240,6 @@ export default {
     CONTENT_TYPE,
     DATA_TYPE,
     RESPONSE_TYPE,
-    get,
-    post,
-    patch,
-    put,
     axiosRequest,
     download
 }
