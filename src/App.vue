@@ -39,9 +39,9 @@
 
         </Header>
         <page-component></page-component>
-<!--        <router-link to="/home"></router-link>-->
-<!--        &lt;!&ndash; 路由出口 &ndash;&gt;-->
-<!--        <router-view></router-view>-->
+        <!--        <router-link to="/home"></router-link>-->
+        <!--        &lt;!&ndash; 路由出口 &ndash;&gt;-->
+        <!--        <router-view></router-view>-->
         <Footer class="footer">2011-2019 &copy; {{title}}</Footer>
     </Layout>
 </template>
@@ -56,13 +56,15 @@
         },
         data() {
             return {
-                title: this.config.title,
+                title: this.$config.title,
             }
         },
-        methods: {
-
-
-        }
+        created() {
+            // console.log(this.$route);
+        },
+        mounted() {
+        },
+        methods: {}
     }
 
 </script>

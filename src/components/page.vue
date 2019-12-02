@@ -63,7 +63,6 @@
 </template>
 
 <script>
-    // import util from "../assets/util.js";
     // import Vue from "vue";
     import log from "../assets/log.js";
     import http from "../assets/http.js";
@@ -79,7 +78,7 @@
         components: {},
         data() {
             return {
-                title: this.config.title,
+                title: this.$config.title,
                 columns: [
                     {
                         title: '文件',
@@ -93,7 +92,7 @@
                                     "background-color": "transparent",
                                 },
                                 attrs: {
-                                    href: "/home" + params.row.path,
+                                    href: params.row.path,
                                 },
                                 // on: {
                                 //     click: () => {
@@ -133,14 +132,37 @@
         methods: {
             // 获取当前页数据
             getApiData() {
+                console.log(this.$route.path)
                 let _this = this;
                 // 并且响应成功以后会执行then方法中的回调函数
-                http.get("/").then(function (result) {
-                    console.log(result.data)
-                    _this.files = result.data.data.file;
-                    _this.menuItems = result.data.data.links;
-                }).catch(function (err) {
-                    _this.$Message.error(err.toString(), 5);
+                this.$axios.get(this.$route.path).then(function (result) {
+                    let data = result.data.data;
+                    _this.files = data.file;
+                    _this.menuItems = data.links;
+
+                    // 创建一个数组用来存储符合权限的路由
+                    let dataRouter = [];
+                    // 循环遍历动态路由表的每一个路由
+                    data.file.forEach((item) => {
+                        let data = {};
+                        if (item.isDir) {
+                            data['path'] = item.path;
+                            data['name'] = item.name;
+                            // () => import("@/components/page.vue")
+                            data['component'] = util.getViews("/components/page");
+                            dataRouter.push(data);
+                        }
+                    })
+
+                    console.log(this.$route.query);
+                    // http://auan.cn/front/1740.html
+                    // https://blog.csdn.net/xp541130126/article/details/81513651
+                    // https://blog.csdn.net/qq_39651981/article/details/86701676
+                    // http://www.imooc.com/article/286102
+                    // 动态添加路由信息
+                    this.$router.addRoutes(dataRouter);
+                }.bind(this)).catch(function (err) {
+                    _this.$Message.error({content: err.toString(), duration: 10});
                 });
             },
             // 设置每行class
