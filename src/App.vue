@@ -1,10 +1,9 @@
 <style scoped>
     .layout {
         background: #fff;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-flow: column;
+        /*position: relative;*/
+        /*display: flex;*/
+        /*flex-flow: column;*/
     }
 
     .layout-logo {
@@ -18,12 +17,19 @@
         left: 20px;
     }
 
+    .header {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+
 
     .footer {
+        width: 100%;
         text-align: center;
         border-top: 1px solid #d7dde4;
         margin-top: 50px;
-        flex: 0;
     }
 
     .ivu-table .table-info-row td {
@@ -34,7 +40,7 @@
 </style>
 <template>
     <Layout class="layout">
-        <Header>
+        <Header class="header">
             <!--            <div class="layout-logo"></div>-->
 
         </Header>
