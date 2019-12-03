@@ -1,9 +1,7 @@
 <style scoped>
     .layout {
+        min-height: 100%;
         background: #fff;
-        /*position: relative;*/
-        /*display: flex;*/
-        /*flex-flow: column;*/
     }
 
     .layout-logo {
@@ -24,19 +22,13 @@
         z-index: 3;
     }
 
-
     .footer {
         width: 100%;
         text-align: center;
         border-top: 1px solid #d7dde4;
-        margin-top: 50px;
+        margin-top: 20px;
     }
 
-    .ivu-table .table-info-row td {
-        /*cursor: pointer;*/
-        background-color: #2db7f5;
-        color: red;
-    }
 </style>
 <template>
     <Layout class="layout">

@@ -1,9 +1,9 @@
 <style scoped>
     .content {
-        width: 70%;
-        height: 100%;
-        margin: 0 auto;
+        /* 填满屏幕 */
         flex: 1;
+        width: 70%;
+        margin: 0 auto;
     }
 
     .breadcrumb {
@@ -48,7 +48,8 @@
         <div class="table">
             <Table :columns="columns" :data="files" :stripe="true">
                 <template slot-scope="{ row }" slot="name">
-                    <a :href="row.isDir ? `?dir=${row.link}` : row.link">{{ row.name }}</a>
+                    <a v-if="row.isDir" :href=" `?dir=${row.link}`">{{ row.name }}</a>
+                    <a v-else :href="row.link" download="">{{ row.name }}</a>
                 </template>
             </Table>
         </div>
