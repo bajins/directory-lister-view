@@ -1,7 +1,7 @@
 <style scoped>
     .content {
-        width: 70vw;
-        height: 100vh;
+        width: 70%;
+        height: 100%;
         margin: 0 auto;
         flex: 1;
     }
@@ -21,9 +21,7 @@
     }
 
     .table {
-        border-width: 1px;
-        border-style: solid;
-        border-color: #e6e6e6;
+        border: 1px solid #e6e6e6;
     }
 </style>
 
@@ -47,18 +45,13 @@
                 </span>
             </Breadcrumb>
         </div>
-        <!--                <Row v-for="(item,index) in list" :key="index">-->
-        <!--                    <i-col span="12" style="background-color: aqua">{{item.name}}}</i-col>-->
-        <!--                    <i-col span="6" style="background-color: darkorchid">{{item.size}}}</i-col>-->
-        <!--                    <i-col span="6" style="background-color: greenyellow">{{item.modtime}}}</i-col>-->
-        <!--                </Row>-->
-        <Table :row-class-name="rowClassName" :columns="columns" :data="files" size="large" class="table"></Table>
-        <!--        <div style="margin: 1%;overflow: hidden" v-if="list.length>0">-->
-        <!--            <div style="float: right;">-->
-        <!--                <Page :total="total" :page-size="pageSize" @on-page-size-change="changePageSize"-->
-        <!--                      @on-change="changePage" show-elevator show-sizer></Page>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="table">
+            <Table :columns="columns" :data="files" :stripe="true">
+                <template slot-scope="{ row }" slot="name">
+                    <a :href="row.isDir ? `?dir=${row.link}` : row.link">{{ row.name }}</a>
+                </template>
+            </Table>
+        </div>
     </div>
 </template>
 
@@ -83,7 +76,8 @@
                     {
                         title: '文件',
                         key: 'name',
-                        render: (h, params) => {
+                        slot: 'name',
+                        /*render: (h, params) => {
                             // https://www.jianshu.com/p/4c8028a198d6
                             return h('a', {
                                 style: {
@@ -100,7 +94,7 @@
                                 //     }
                                 // }
                             }, params.row.name);
-                        }
+                        }*/
                     },
                     {
                         title: '大小',
@@ -183,10 +177,6 @@
                         }
                     })
                 }
-            },
-            // 设置每行class
-            rowClassName() {
-                return 'table-info-row';
             }
         }
     }
