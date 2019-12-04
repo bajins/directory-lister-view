@@ -190,11 +190,17 @@ const download = (url, params) => {
             let filename = "";
             // 如果从Content-Disposition中取到的文件名不为空
             if (!util.isEmpty(contentDisposition)) {
-                let reg = new RegExp("filename=([^;]+\\.[^\\.;]+);*");
-                filename = reg.exec(contentDisposition)[1];
+                // 取出文件名
+                filename = new RegExp("filename=(.*)(?=;|%3B)").exec(contentDisposition)[1];
                 // 取文件名信息中的文件名,替换掉文件名中多余的符号
-                filename = filename.replaceAll("\\\\|/|\"", "");
+                filename = filename.replaceAll("\\\\|/|\"|\\s", "");
+            } else {
+                let urls = url.split("/");
+                filename = urls[urls.length - 1];
             }
+            // 解决中文乱码，编码格式
+            filename = decodeURI(escape(filename));
+
             let downloadElement = document.createElement('a');
 
             //这里res.data是返回的blob对象
