@@ -7,7 +7,7 @@
     }
 
     .breadcrumb {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        tap-highlight-color: rgba(0, 0, 0, 0);
         font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
         font-size: 14px;
         line-height: 1.42857143;
@@ -49,7 +49,10 @@
             <Table :columns="columns" :data="files" :stripe="true">
                 <template slot-scope="{ row }" slot="name">
                     <a v-if="row.isDir" :href=" `?dir=${row.link}`">{{ row.name }}</a>
-                    <a v-else :href="row.link" download="">{{ row.name }}</a>
+                    <a v-else :href="`download${row.link}`"
+                       v-on:click.prevent="downloadFile(`download${row.link}`)">
+                        {{ row.name }}
+                    </a>
                 </template>
             </Table>
         </div>
@@ -166,18 +169,14 @@
                         _this.$Message.error({content: err.toString(), duration: 10});
                     });
                 } else {
-                    http.download(url).catch(function (err) {
-                        if (err.response) {
-                            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-                            log.debug(err.response.data);
-                            log.debug(err.response.status);
-                            log.debug(err.response.headers);
-                        } else {
-                            log.error(err)
-                            _this.$Message.error({content: err.toString(), duration: 10});
-                        }
-                    })
+                    _this.downloadFile(url);
                 }
+            },
+            downloadFile(url) {
+                let _this = this;
+                http.download(url).catch(function (err) {
+                    _this.$Message.error({content: err.message, duration: 10});
+                })
             }
         }
     }
