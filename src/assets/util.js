@@ -196,6 +196,17 @@ if (!Array.prototype.insert) {
 // js = js[js.length - 1].src.substring(0, js[js.length - 1].src.lastIndexOf("/") + 1);
 
 /**
+ * 判断一个元素是否含有指定class
+ * @param selector
+ * @param cls
+ * @returns {boolean}
+ */
+function hasClass(selector, cls) {
+    return (` ${document.querySelector(selector).className} `).indexOf(` ${cls} `) > -1;
+}
+
+
+/**
  * 获取当前路径
  *
  * @returns {string}
@@ -203,9 +214,9 @@ if (!Array.prototype.insert) {
 const getCurrAbsPath = () => {
 
     // ECMAScript6
-    // if (import.meta) {
-    //     return import.meta.url;
-    // }
+    if (import.meta) {
+        return import.meta.url;
+    }
 
     // FF,Chrome
     if (document.currentScript) {
@@ -316,21 +327,6 @@ const isEmpty = (obj) => {
     }
 }
 
-/**
- * 动态导入组件
- * 同() => import(`@${_this.files.path}.vue`)
- *
- * @param path
- * @returns {function(...[*]=)}
- */
-const getViews = (path) => {
-    return resolve => {
-        require.ensure([], (require) => {
-            resolve(require(`@${path}.vue`));
-        })
-    }
-}
-
 
 /**
  * export default 服从 ES6 的规范,补充：default 其实是别名
@@ -352,6 +348,5 @@ export default {
     getPath,
     randomNum,
     delay,
-    isEmpty,
-    getViews
+    isEmpty
 }
