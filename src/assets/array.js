@@ -99,13 +99,13 @@ const reinsertElement = (array, element) => {
  * @returns {*}
  */
 const mergeArray = (arr1, arr2) => {
-    // var _arr = new Array();
-    // for (var i = 0; i < arr1.length; i++) {
+    // let _arr = new Array();
+    // for (let i = 0; i < arr1.length; i++) {
     //   _arr.push(arr1[i]);
     // }
-    // for (var i = 0; i < arr2.length; i++) {
-    //   var flag = true;
-    //   for (var j = 0; j < arr1.length; j++) {
+    // for (let i = 0; i < arr2.length; i++) {
+    //   let flag = true;
+    //   for (let j = 0; j < arr1.length; j++) {
     //     if (arr2[i] == arr1[j]) {
     //       flag = false;
     //       break;
