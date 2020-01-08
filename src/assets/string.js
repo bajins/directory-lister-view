@@ -18,7 +18,7 @@
  * @param str 指定字符串范围，默认小写字母、数字、下划线
  * @returns {string}
  */
-const randomString=(len, str)=> {
+const randomString = (len, str) => {
     str = str || 'abcdefghijklmnopqrstuvwxyz0123456789_';
     let randomString = '';
     for (let i = 0; i < len; i++) {
@@ -35,7 +35,7 @@ const randomString=(len, str)=> {
  * @param oldStr
  * @returns {string}
  */
-const replaceBlank=(oldStr)=> {
+const replaceBlank = (oldStr) => {
     if (typeof oldStr != "string") {
         throw new Error("正则表达式去除空行，传入的不为字符串！");
     }
@@ -68,9 +68,6 @@ const formatNumber = (n) => {
  * 目前 vue 编译都是依赖label 插件，最终都转化为ES5
  *
  * @return 将方法、变量暴露出去
- * @Description
- * @author claer woytu.com
- * @date 2019/4/29 11:58
  */
 export default {
     randomString,

@@ -141,9 +141,6 @@ axios.interceptors.response.use(
  *   dataType： 返回数据类型（json,text,xml,html,script,jsonp）
  *   responseType： 响应的数据类型（text，arraybuffer,blob,document,json,ms-stream）
  * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 13:43
  */
 const axiosRequest = (url, obj) => {
     return new Promise((resolve, reject) => {
@@ -169,9 +166,6 @@ const axiosRequest = (url, obj) => {
  * 文件下载api封装
  *
  * @return
- * @Description
- * @author claer woytu.com
- * @date 2019/4/30 15:13
  */
 const download = (url, params) => {
     return new Promise((resolve, reject) => {
@@ -247,9 +241,6 @@ const download = (url, params) => {
  * 目前 vue 编译都是依赖label 插件，最终都转化为ES5
  *
  * @return 将方法、变量暴露出去
- * @Description
- * @author claer woytu.com
- * @date 2019/4/29 11:58
  */
 export default {
     METHOD,
