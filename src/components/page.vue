@@ -23,6 +23,12 @@
     .table {
         border: 1px solid #e6e6e6;
     }
+    @media (max-width: 768px) {
+        .content {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
 </style>
 
 <template id="pageTemplate">
