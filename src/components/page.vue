@@ -23,9 +23,15 @@
     .table {
         border: 1px solid #e6e6e6;
     }
+
+    .table a:hover {
+        text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
         .content {
             width: 100%;
+            padding: 15px;
             margin: 0 auto;
         }
     }
@@ -54,9 +60,8 @@
         <div class="table">
             <Table :columns="columns" :data="files" :stripe="true">
                 <template slot-scope="{ row }" slot="name">
-                    <a v-if="row.isDir" :href=" `?dir=${row.link}`">{{ row.name }}</a>
-                    <a v-else :href="`download${row.link}`"
-                       v-on:click.prevent="downloadFile(`download${row.link}`)">
+                    <a v-if="row.isDir" :href="`?dir=${row.link}`">{{ row.name }}</a>
+                    <a v-else :href="`download${row.link}`" v-on:click.prevent="downloadFile(`download${row.link}`)">
                         {{ row.name }}
                     </a>
                 </template>
@@ -69,7 +74,7 @@
     // import Vue from "vue";
     import log from "../assets/log.js";
     import http from "../assets/http.js";
-    import util from "../assets/util.js";
+    // import util from "../assets/util.js";
 
     // Vue.component("pageComponent", {
     //     template: "#pageTemplate"
@@ -87,34 +92,35 @@
                         title: '文件',
                         key: 'name',
                         slot: 'name',
+                        minWidth: 200,
                         /*render: (h, params) => {
-                            // https://www.jianshu.com/p/4c8028a198d6
-                            return h('a', {
-                                style: {
-                                    "color": "#246bb7",
-                                    "text-decoration": "none",
-                                    "background-color": "transparent",
-                                },
-                                attrs: {
-                                    href: params.row.isDir ? `?dir=${params.row.link}` : params.row.link,
-                                },
-                                // on: {
-                                //     click: () => {
-                                //         this.$router.push({ path:""});
-                                //     }
-                                // }
-                            }, params.row.name);
-                        }*/
+                        // https://www.jianshu.com/p/4c8028a198d6
+                        return h('a', {
+                            style: {
+                                "color": "#246bb7",
+                                "text-decoration": "none",
+                                "background-color": "transparent",
+                            },
+                            attrs: {
+                                href: params.row.isDir ? `?dir=${params.row.link}` : params.row.link,
+                            },
+                            // on: {
+                            //     click: () => {
+                            //         this.$router.push({ path:""});
+                            //     }
+                            // }
+                        }, params.row.name);
+                    }*/
                     },
                     {
                         title: '大小',
                         key: 'size',
-                        width: 150
+                        minWidth: 100,
                     },
                     {
                         title: '最后修改时间',
                         key: 'modTime',
-                        width: 200
+                        minWidth: 170,
                     }
                 ],
                 // 每页显示多少条
@@ -131,7 +137,12 @@
         },
         // 监控数据变化，随时更新DOM
         mounted() {
-            // this.getApiData();
+            //const that = this;
+            window.onresize = () => {
+                return (() => {
+
+                })();
+            }
         },
         methods: {
             // 获取当前页数据
@@ -158,8 +169,7 @@
                             if (item.isDir) {
                                 data['path'] = item.link;
                                 data['name'] = item.name;
-                                // () => import("@/components/page.vue")
-                                data['component'] = util.getViews("/components/page");
+                                data['component'] = require("@/components/page.vue");
                                 dataRouter.push(data);
                             }
                         });
