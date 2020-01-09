@@ -5,9 +5,9 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import routers from './router.js';
 import Axios from 'axios';
 import App from './App.vue';
-import routers from './router.js';
 import ViewUI from 'view-design'; // 引入view-design依赖
 import 'view-design/dist/styles/iview.css';
 import VueI18n from 'vue-i18n';
