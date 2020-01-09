@@ -109,27 +109,6 @@
                         let data = result.data.data;
                         _this.files = data.file;
                         _this.menuItems = data.links;
-
-                        // 创建一个数组用来存储符合权限的路由
-                        let dataRouter = [];
-                        // 循环遍历动态路由表的每一个路由
-                        data.file.forEach((item) => {
-                            let data = {};
-                            if (item.isDir) {
-                                data['path'] = item.link;
-                                data['name'] = item.name;
-                                data['component'] = () => import("@/views/home.vue");
-                                dataRouter.push(data);
-                            }
-                        });
-                        if (dataRouter.length != 0) {
-                            // http://auan.cn/front/1740.html
-                            // https://blog.csdn.net/xp541130126/article/details/81513651
-                            // https://blog.csdn.net/qq_39651981/article/details/86701676
-                            // http://www.imooc.com/article/286102
-                            // 动态添加路由信息
-                            this.$router.addRoutes(dataRouter);
-                        }
                     }.bind(this)).catch(function (err) {
                         _this.$Message.error({content: err.toString(), duration: 10});
                     });
