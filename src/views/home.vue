@@ -28,6 +28,7 @@
         flex: 1;
         width: 100%;
         max-width: 1140px;
+        min-width: 320px;
         height: 100%;
         margin: 0 auto;
     }

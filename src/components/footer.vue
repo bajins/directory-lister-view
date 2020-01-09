@@ -22,6 +22,7 @@
 <style scoped>
     .footer {
         width: 100%;
+        min-width: 320px;
         text-align: center;
         border-top: 1px solid #d7dde4;
         margin-top: 20px;

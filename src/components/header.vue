@@ -79,6 +79,7 @@
 <style scoped>
     .header {
         width: 100%;
+        min-width: 320px;
         position: sticky;
         top: 0;
         z-index: 3;
@@ -93,16 +94,12 @@
 
     .navbar-brand {
         display: flex;
-        line-height: 1;
         padding-top: .3125rem;
-        text-align: center;
-        font-weight: 500;
-        text-decoration: none;
     }
 
     .navbar-brand span {
         line-height: 2;
-        margin: 10px;
+        padding: 10px;
         font-size: 1.2rem;
         font-weight: 600;
         color: #2c3e50;
@@ -120,12 +117,8 @@
     .navbar-toggler {
         display: none;
         color: rgba(0, 0, 0, .5);
-        padding: .25rem .75rem;
-        font-size: 1.25rem;
-        line-height: 4.5;
         background-color: transparent;
-        border: 1px solid transparent;
-        border-radius: .25rem;
+        line-height: 1;
     }
 
     .navbar-collapse {
@@ -147,9 +140,13 @@
             justify-content: space-between;
         }
 
+        .navbar-brand {
+            padding-top: 0px;
+        }
+
         .navbar-toggler {
-            display: block;
-            position: absolute;
+            display: inline-block;
+            position: relative;
             top: 0;
             right: 0;
         }
