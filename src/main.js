@@ -4,13 +4,12 @@
  */
 
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import routers from './router.js';
-import Axios from 'axios';
-import App from './App.vue';
-import ViewUI from 'view-design'; // 引入view-design依赖
-import 'view-design/dist/styles/iview.css';
+import router from "./router";
 import VueI18n from 'vue-i18n';
+import App from './App.vue';
+import Axios from 'axios';
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 import en from 'view-design/dist/locale/en-US';
 import zh from 'view-design/dist/locale/zh-CN';
 import fontawesome from '@fortawesome/fontawesome';
@@ -18,7 +17,7 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import solid from '@fortawesome/fontawesome-free-solid';
 import regular from '@fortawesome/fontawesome-free-regular';
 import brands from '@fortawesome/fontawesome-free-brands';
-import themeConfig from "./themeConfig.js";
+import themeConfig from "./themeConfig";
 
 // 设置为 false 以阻止 vue 在启动时生成生产提示。
 Vue.config.productionTip = false;
@@ -52,7 +51,7 @@ Vue.use(VueI18n);
 
 
 // 1 将所有的主机名和端口 一起设置
-Axios.defaults.baseURL = "/home";
+Axios.defaults.baseURL = "/h";
 
 //设置请求的headers
 Axios.defaults.headers.common['token'] = '';
@@ -66,22 +65,12 @@ Object.defineProperty(Vue.prototype, '$axios', {
     }
 });
 
-// 注入路由
-// https://router.vuejs.org/zh/
-Vue.use(VueRouter);
-
-// 3. 创建 router 实例，然后传 `routes` 配置
-// 你还可以传别的配置参数, 不过先这么简单着吧。
-const router = new VueRouter({
-    mode: "history",// 去掉路径中的#
-    routers, // (缩写) 相当于 routes: routes
-});
-
 
 // 每个Vue应用都是通过用Vue函数创建一个新的根Vue实例开始的
 new Vue({
-    i18n,
+    // el: '#app',
     router,
+    i18n,
     Axios,
     render: h => h(App)
 }).$mount('#app');

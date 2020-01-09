@@ -1,16 +1,29 @@
 /**
  * 路由
  */
+import Vue from 'vue';
+//Vue路由：引入
+import VueRouter from 'vue-router';
+// https://router.vuejs.org/zh/
+Vue.use(VueRouter);
 
-import admin from './components/admin.vue';
+import admin from './views/admin';
+import home from "./views/home";
 
 
-export default [
+const routes = [
+    // {
+    //     path: "*",
+    //     redirect: "/indexing"
+    // },
+    // {
+    //     path: "/",
+    //     redirect: "/indexing"
+    // },
     {
         path: '/',
-        name: 'page',
-        component: () => import(`./components/page.vue`),
-        // redirect: "/"
+        name: 'home',
+        component: home,
     },
     {
         path: '/admin',
@@ -20,16 +33,32 @@ export default [
     {
         path: '/indexing',
         name: 'indexing',
-        component: resolve => require([`./components/indexing.vue`], resolve)
+        component: () => import(`@/views/indexing`)
     },
     {
         path: '/install',
         name: 'install',
-        component: resolve => require.ensure([], () => resolve(require(`./components/install.vue`)))
+        component: () => import(`@/views/install`)
     },
     {
         path: '/login',
         name: 'login',
-        component: () => import(`./components/login.vue`)
+        component: () => import(`@/views/login`)
     }
 ]
+
+const createRouter = () => new VueRouter({
+    mode: 'history', // require service support
+    scrollBehavior: () => ({y: 0}),
+    routes: routes
+})
+
+const router = createRouter();
+
+// https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+    const newRouter = createRouter();
+    router.matcher = newRouter.matcher; // reset router
+}
+
+export default router

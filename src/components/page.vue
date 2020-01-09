@@ -1,16 +1,14 @@
-<template id="pageTemplate">
-    <Layout class="layout">
-        <header-component></header-component>
-        <div class="content">
-            <div class="breadcrumb">
-                <Breadcrumb>
-                    <Breadcrumb-item>
-                        <a href="/">
-                            <Icon type="ios-home-outline"></Icon>
-                            {{title}}
-                        </a>
-                    </Breadcrumb-item>
-                    <span v-for="(item,index) in menuItems" :key="index">
+<template>
+    <div class="content">
+        <div class="breadcrumb">
+            <Breadcrumb>
+                <Breadcrumb-item>
+                    <a href="/">
+                        <Icon type="ios-home-outline"/>
+                        {{$themeConfig.title}}
+                    </a>
+                </Breadcrumb-item>
+                <span v-for="(item,index) in menuItems" :key="index">
                     <Breadcrumb-item v-if="index!=0 && index==menuItems.length-1">
                         <span>{{item.name}}</span>
                     </Breadcrumb-item>
@@ -18,42 +16,28 @@
                         <a :href="'?dir='+item.path">{{item.name}}</a>
                     </Breadcrumb-item>
                 </span>
-                </Breadcrumb>
-            </div>
-            <div class="table">
-                <Table :columns="columns" :data="files" :stripe="true">
-                    <template slot-scope="{ row }" slot="name">
-                        <a v-if="row.isDir" :href="`?dir=${row.link}`">{{ row.name }}</a>
-                        <a v-else :href="`download${row.link}`"
-                           v-on:click.prevent="downloadFile(`download${row.link}`)">
-                            {{ row.name }}
-                        </a>
-                    </template>
-                </Table>
-            </div>
+            </Breadcrumb>
         </div>
-        <footer-component></footer-component>
-    </Layout>
+        <div class="table">
+            <Table :columns="columns" :data="files" :stripe="true">
+                <template slot-scope="{ row }" slot="name">
+                    <a v-if="row.isDir" :href="`?dir=${row.link}`">{{ row.name }}</a>
+                    <a v-else :href="`download${row.link}`" v-on:click.prevent="downloadFile(`download${row.link}`)">
+                        {{ row.name }}
+                    </a>
+                </template>
+            </Table>
+        </div>
+    </div>
 </template>
 
 <script>
-    // import Vue from "vue";
     import log from "../assets/log.js";
     import http from "../assets/http.js";
-    import footer from './footer.vue';
-    import header from './header.vue';
-    // import util from "../assets/util.js";
-
-    // Vue.component("pageComponent", {
-    //     template: "#pageTemplate"
-    // });
 
     export default {
         name: 'page',
-        components: {
-            "header-component": header,
-            "footer-component": footer,
-        },
+        components: {},
         data() {
             return {
                 columns: [
@@ -134,7 +118,7 @@
                             if (item.isDir) {
                                 data['path'] = item.link;
                                 data['name'] = item.name;
-                                data['component'] = require("@/components/page.vue");
+                                data['component'] = () => import("@/views/home.vue");
                                 dataRouter.push(data);
                             }
                         });
@@ -162,17 +146,14 @@
         }
     }
 </script>
-<style scoped>
-    .layout {
-        min-height: 100%;
-        background: #fff;
-    }
 
+<style scoped>
     .content {
         /* 填满屏幕 */
         flex: 1;
         width: 100%;
         max-width: 1140px;
+        height: 100%;
         margin: 0 auto;
     }
 

@@ -1,8 +1,3 @@
-<style scoped>
-
-
-
-</style>
 <template>
     <!-- 路由出口 -->
     <router-view/>
@@ -11,17 +6,17 @@
 
     // https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7
     export default {
-        name: 'app',
-        components: {},
-        data() {
-            return {}
-        },
-        created() {
-            // console.log(this.$route);
-        },
-        mounted() {
-        },
-        methods: {}
+        name: 'app'
     }
 
 </script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        height: 100%;
+    }
+</style>
