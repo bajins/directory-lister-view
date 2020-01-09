@@ -18,15 +18,15 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import solid from '@fortawesome/fontawesome-free-solid';
 import regular from '@fortawesome/fontawesome-free-regular';
 import brands from '@fortawesome/fontawesome-free-brands';
-import config from "./config.js";
+import themeConfig from "./themeConfig.js";
 
 // 设置为 false 以阻止 vue 在启动时生成生产提示。
 Vue.config.productionTip = false;
 
-// Vue.prototype.config = config;
-Object.defineProperty(Vue.prototype, '$config', {
+// Vue.prototype.$themeConfig = themeConfig;
+Object.defineProperty(Vue.prototype, '$themeConfig', {
     get: function get() {
-        return config
+        return themeConfig
     }
 });
 
@@ -73,9 +73,9 @@ Vue.use(VueRouter);
 // 3. 创建 router 实例，然后传 `routes` 配置
 // 你还可以传别的配置参数, 不过先这么简单着吧。
 const router = new VueRouter({
+    mode: "history",// 去掉路径中的#
     routers, // (缩写) 相当于 routes: routes
-    mode: "history"// 去掉路径中的#
-})
+});
 
 
 // 每个Vue应用都是通过用Vue函数创建一个新的根Vue实例开始的

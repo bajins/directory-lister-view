@@ -1,54 +1,16 @@
-<style scoped>
-    .content {
-        /* 填满屏幕 */
-        flex: 1;
-        width: 100%;
-        max-width: 1140px;
-        margin: 0 auto;
-    }
-
-    .breadcrumb {
-        tap-highlight-color: rgba(0, 0, 0, 0);
-        font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #24292e;
-        margin: 10px 0px 20px 0px;
-        box-sizing: border-box;
-        padding: 8px 15px;
-        list-style: none;
-        background-color: #f5f5f5;
-        border-radius: 4px;
-    }
-
-    .table {
-        border: 1px solid #e6e6e6;
-    }
-
-    .table a:hover {
-        text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-        .content {
-            width: 100%;
-            padding: 15px;
-            margin: 0 auto;
-        }
-    }
-</style>
-
 <template id="pageTemplate">
-    <div class="content">
-        <div class="breadcrumb">
-            <Breadcrumb>
-                <Breadcrumb-item>
-                    <a href="/">
-                        <Icon type="ios-home-outline"></Icon>
-                        {{title}}
-                    </a>
-                </Breadcrumb-item>
-                <span v-for="(item,index) in menuItems" :key="index">
+    <Layout class="layout">
+        <header-component></header-component>
+        <div class="content">
+            <div class="breadcrumb">
+                <Breadcrumb>
+                    <Breadcrumb-item>
+                        <a href="/">
+                            <Icon type="ios-home-outline"></Icon>
+                            {{title}}
+                        </a>
+                    </Breadcrumb-item>
+                    <span v-for="(item,index) in menuItems" :key="index">
                     <Breadcrumb-item v-if="index!=0 && index==menuItems.length-1">
                         <span>{{item.name}}</span>
                     </Breadcrumb-item>
@@ -56,38 +18,44 @@
                         <a :href="'?dir='+item.path">{{item.name}}</a>
                     </Breadcrumb-item>
                 </span>
-            </Breadcrumb>
+                </Breadcrumb>
+            </div>
+            <div class="table">
+                <Table :columns="columns" :data="files" :stripe="true">
+                    <template slot-scope="{ row }" slot="name">
+                        <a v-if="row.isDir" :href="`?dir=${row.link}`">{{ row.name }}</a>
+                        <a v-else :href="`download${row.link}`"
+                           v-on:click.prevent="downloadFile(`download${row.link}`)">
+                            {{ row.name }}
+                        </a>
+                    </template>
+                </Table>
+            </div>
         </div>
-        <div class="table">
-            <Table :columns="columns" :data="files" :stripe="true">
-                <template slot-scope="{ row }" slot="name">
-                    <a v-if="row.isDir" :href="`?dir=${row.link}`">{{ row.name }}</a>
-                    <a v-else :href="`download${row.link}`" v-on:click.prevent="downloadFile(`download${row.link}`)">
-                        {{ row.name }}
-                    </a>
-                </template>
-            </Table>
-        </div>
-    </div>
+        <footer-component></footer-component>
+    </Layout>
 </template>
 
 <script>
     // import Vue from "vue";
     import log from "../assets/log.js";
     import http from "../assets/http.js";
+    import footer from './footer.vue';
+    import header from './header.vue';
     // import util from "../assets/util.js";
 
     // Vue.component("pageComponent", {
     //     template: "#pageTemplate"
     // });
 
-
     export default {
-        name: 'home',
-        components: {},
+        name: 'page',
+        components: {
+            "header-component": header,
+            "footer-component": footer,
+        },
         data() {
             return {
-                title: this.$config.title,
                 columns: [
                     {
                         title: '文件',
@@ -124,10 +92,6 @@
                         minWidth: 170,
                     }
                 ],
-                // 每页显示多少条
-                pageSize: 10,
-                // 初始化信息总条数
-                total: 0,
                 // 数据 （MVVM中的Model）
                 files: [],
                 menuItems: []
@@ -198,3 +162,47 @@
         }
     }
 </script>
+<style scoped>
+    .layout {
+        min-height: 100%;
+        background: #fff;
+    }
+
+    .content {
+        /* 填满屏幕 */
+        flex: 1;
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    .breadcrumb {
+        tap-highlight-color: rgba(0, 0, 0, 0);
+        font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #24292e;
+        margin: 10px 0px 20px 0px;
+        box-sizing: border-box;
+        padding: 8px 15px;
+        list-style: none;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+    }
+
+    .table {
+        border: 1px solid #e6e6e6;
+    }
+
+    .table a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+    }
+</style>

@@ -2,33 +2,34 @@
  * 路由
  */
 
-import Login from './views/login.vue';
-import pageComponent from './components/page.vue';
+import admin from './components/admin.vue';
 
 
 export default [
     {
-        path: '/home',
-        name: 'home',
-        component: pageComponent
+        path: '/',
+        name: 'page',
+        component: () => import(`./components/page.vue`),
+        // redirect: "/"
     },
     {
-        path: '/index',
-        name: 'index',
-        component: pageComponent
+        path: '/admin',
+        name: 'admin',
+        component: admin
+    },
+    {
+        path: '/indexing',
+        name: 'indexing',
+        component: resolve => require([`./components/indexing.vue`], resolve)
+    },
+    {
+        path: '/install',
+        name: 'install',
+        component: resolve => require.ensure([], () => resolve(require(`./components/install.vue`)))
     },
     {
         path: '/login',
-        name: 'login1',
-        component: Login
-    },
-    {
-        path: '/login/${path}',
         name: 'login',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        // component: () => import('./views/login.vue')
-        component: Login
+        component: () => import(`./components/login.vue`)
     }
 ]
