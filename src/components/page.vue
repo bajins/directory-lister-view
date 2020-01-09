@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div>
         <div class="breadcrumb">
             <Breadcrumb>
                 <Breadcrumb-item>
@@ -148,15 +148,6 @@
 </script>
 
 <style scoped>
-    .content {
-        /* 填满屏幕 */
-        flex: 1;
-        width: 100%;
-        max-width: 1140px;
-        height: 100%;
-        margin: 0 auto;
-    }
-
     .breadcrumb {
         tap-highlight-color: rgba(0, 0, 0, 0);
         font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
@@ -179,11 +170,4 @@
         text-decoration: underline;
     }
 
-    @media (max-width: 768px) {
-        .content {
-            width: 100%;
-            padding: 15px;
-            margin: 0 auto;
-        }
-    }
 </style>

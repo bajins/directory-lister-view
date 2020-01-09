@@ -1,15 +1,16 @@
 <template>
     <Header class="header">
         <div class="big-nav">
-            <a class="navbar-brand" href="./">
+            <a class="navbar-brand" href="../..">
                 <img src="https://www.bajins.com/images/icons/logo.png" class="header-logo"/>
+                <span>{{$themeConfig.title}}</span>
             </a>
             <div class="navbar-toggler" v-on:click="clickNavbarToggler">
                 <Icon type="md-menu" :size="50" color="white"/>
             </div>
             <div :class="'navbar-collapse '+show">
                 <Menu :mode="headerMenuMode" theme="dark" width="100%">
-                    <a href="./">
+                    <a href="../..">
                         <MenuItem name="1" class="menu-item">
                             <Icon type="md-home"/>
                             网站首页
@@ -91,9 +92,22 @@
     }
 
     .navbar-brand {
-        display: inline-block;
+        display: flex;
         line-height: 1;
         padding-top: .3125rem;
+        text-align: center;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .navbar-brand span {
+        line-height: 2;
+        margin: 10px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        position: relative;
+        text-align: center;
     }
 
     .header-logo {
@@ -108,7 +122,7 @@
         color: rgba(0, 0, 0, .5);
         padding: .25rem .75rem;
         font-size: 1.25rem;
-        line-height: 1;
+        line-height: 4.5;
         background-color: transparent;
         border: 1px solid transparent;
         border-radius: .25rem;

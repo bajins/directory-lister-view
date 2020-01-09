@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 import admin from './views/admin';
 import home from "./views/home";
 
-
+// https://router.vuejs.org/zh/guide/essentials/nested-routes.html
 const routes = [
     // {
     //     path: "*",
@@ -24,21 +24,27 @@ const routes = [
         path: '/',
         name: 'home',
         component: home,
+        children: [
+            {
+                path: '',
+                component: () => import("./components/page")
+            },
+            {
+                path: "/indexing",
+                component: () => import("./components/indexing")
+            },
+        ]
     },
     {
         path: '/admin',
         name: 'admin',
-        component: admin
-    },
-    {
-        path: '/indexing',
-        name: 'indexing',
-        component: () => import(`@/views/indexing`)
+        component: admin,
+        children: []
     },
     {
         path: '/install',
         name: 'install',
-        component: () => import(`@/views/install`)
+        component: () => import(`./views/install`)
     },
     {
         path: '/login',
