@@ -1,6 +1,8 @@
 <template>
-    <!-- https://iviewui.com/components/tree -->
-    <Tree :data="data"></Tree>
+    <div>
+        <!-- https://iviewui.com/components/tree -->
+        <Tree :data="data"></Tree>
+    </div>
 </template>
 
 <script>
