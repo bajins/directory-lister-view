@@ -2,7 +2,8 @@
     <Header class="header">
         <div class="big-nav">
             <a class="navbar-brand" href="../..">
-                <img src="https://www.bajins.com/images/icons/logo.png" class="header-logo"/>
+                <!-- https://cli.vuejs.org/zh/guide/html-and-static-assets.html#public-%E6%96%87%E4%BB%B6%E5%A4%B9 -->
+                <img :src="`${publicPath}logo.png`" class="header-logo"/>
                 <span>{{$themeConfig.title}}</span>
             </a>
             <div class="navbar-toggler" v-on:click="clickNavbarToggler">
@@ -40,6 +41,7 @@
         name: "header-component",
         data() {
             return {
+                publicPath: process.env.BASE_URL,
                 headerMenuMode: "horizontal",
                 show: ""
             }
