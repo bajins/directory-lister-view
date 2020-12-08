@@ -25,7 +25,7 @@ module.exports = {
     devServer: {
         open: false,
         port: process.env.port || process.env.npm_config_port || 8080, // 自定义修改8080端口
-        proxy: {
+        proxy: { // https://webpack.docschina.org/configuration/dev-server/#devserverproxy
             // 与Axios.defaults.baseURL的值一至
             // https://blog.csdn.net/idomyway/article/details/94358986
             // https://blog.csdn.net/Liu_yunzhao/article/details/90520028
