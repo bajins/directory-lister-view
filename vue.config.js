@@ -34,7 +34,7 @@ module.exports = {
                 // 是否启用websockets
                 ws: true,
                 // secure: false, // https协议才设置
-                changeOrigin: true,
+                changeOrigin: true, // 开启代理,本地创建一个虚拟服务器允许跨域
                 pathRewrite: {
                     '^/h/': '/', // rewrite path
                 }
