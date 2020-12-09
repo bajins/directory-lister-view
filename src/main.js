@@ -52,7 +52,8 @@ Vue.use(VueI18n);
 
 // 1 将所有的主机名和端口 一起设置
 Axios.defaults.baseURL = "/h";
-
+// 让 ajax 携带 cookie
+Axios.defaults.withCredentials = true;
 //设置请求的headers
 Axios.defaults.headers.common['token'] = '';
 Axios.defaults.headers.post['Content-type'] = 'application/json';
@@ -61,7 +62,7 @@ Axios.defaults.headers.post['Content-type'] = 'application/json';
 // 将axios挂载到原型上
 Object.defineProperty(Vue.prototype, '$axios', {
     get: function get() {
-        return Axios
+        return Axios;
     }
 });
 
