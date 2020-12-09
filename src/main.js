@@ -54,7 +54,7 @@ Vue.use(VueI18n);
 Axios.defaults.baseURL = "/h";
 // 让 ajax 携带 cookie
 Axios.defaults.withCredentials = true;
-//设置请求的headers
+// 设置请求的headers
 Axios.defaults.headers.common['token'] = '';
 Axios.defaults.headers.post['Content-type'] = 'application/json';
 
@@ -65,6 +65,7 @@ Object.defineProperty(Vue.prototype, '$axios', {
         return Axios;
     }
 });
+// Vue.prototype.$axios = Axios;
 
 
 // 每个Vue应用都是通过用Vue函数创建一个新的根Vue实例开始的
